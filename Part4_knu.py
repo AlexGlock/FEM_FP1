@@ -18,14 +18,15 @@ def knu_for_elem(msh: Mesh, shape_fkt: ShapeFunction_N, model: ProblemParams, el
 
     :param msh: Mesh Data object of Model-Geometry
     :param shape_fkt: Shape function object of Model-Geometry
+    :param model: parameters of analytic model
     :param elem_ind: integer index of the element
     :return elem_knu: 3x3 local knu matrix of element with elem_ind
     """
 
     elem_rel = msh.reluctivity_in_elements[elem_ind]
-    elem_b = shape_fkt.b[elem_ind]
-    elem_c = shape_fkt.c[elem_ind]
-    elem_S = np.array(shape_fkt.S[elem_ind])
+    elem_b = shape_fkt.b[elem_ind, :]
+    elem_c = shape_fkt.c[elem_ind, :]
+    elem_S = shape_fkt.S[elem_ind]
 
     elem_knu = np.zeros((3, 3))
 
@@ -41,6 +42,7 @@ def knu_for_mesh(msh: Mesh, shape_fkt: ShapeFunction_N, model: ProblemParams):
 
     :param msh: Mesh object of model geometry
     :param shape_fkt: shape function of model geometry
+    :param model: parameters of analytic model
     :return knu: NxN stiffness matrix
     """
     n = msh.num_elements * 9  # Amount of matrix entries
@@ -50,19 +52,18 @@ def knu_for_mesh(msh: Mesh, shape_fkt: ShapeFunction_N, model: ProblemParams):
 
     # Looping over the elements for assigning Knu...
     for k in range(msh.num_elements):
-        elem_nodes = msh.elem_to_node[k]
-        ind = msh.elements[k]
+        elem_nodes = msh.elem_to_node[k, :]
 
-        index_cols[k * 9:k * 9 + 9] = np.reshape([elem_nodes, elem_nodes, elem_nodes], 9)
-        index_rows[k * 9:k * 9 + 9] = np.repeat(elem_nodes, 3)
-        elem_knu = knu_for_elem(msh, shape_fkt, model, ind)
-        elementwise_entries[k * 9:k * 9 + 9] = elem_knu.flatten()
+        triple_elem_nodes = np.array([elem_nodes, elem_nodes, elem_nodes])
+        index_cols[k * 9:k * 9 + 9] = np.reshape(triple_elem_nodes.T, 9)
+        index_rows[k * 9:k * 9 + 9] = np.reshape(triple_elem_nodes, 9)
+        elementwise_entries[k * 9:k * 9 + 9] = np.reshape(knu_for_elem(msh, shape_fkt, model, k), 9)
 
     # Assembly of Knu
     index_rows = index_rows.T
     index_columns = index_cols.tolist()
     elementwise_entries = elementwise_entries.tolist()
-    return sparse.csr_matrix((elementwise_entries, (index_rows, index_columns)))
+    return sparse.csr_matrix((elementwise_entries, (index_rows, index_columns))) # [1/H] : circuit-reluctance matrix
 
 
 def j_grid_for_elem(msh: Mesh, model: ProblemParams):
@@ -94,7 +95,7 @@ def j_grid_for_mesh(msh: Mesh, shape_fkt: ShapeFunction_N, params: ProblemParams
     elem_surf = shape_fkt.S                                          # [m^2]   : surface of triangles
     elem_cur_density = j_grid_for_elem(msh, params)                  # [A/m^2]     : current densities in each element
 
-    node_currents = elem_cur_density*elem_surf/3                     # [A]     : localized grid current (nodes)
+    node_currents = elem_cur_density * np.array(shape_fkt.S)/3  # [A]     : localized grid current (nodes)
     node_currents = np.tile(node_currents, (3, 1)).transpose()       # inflate for nodal accumulation
 
     # for j, nodes in enumerate(msh.elem_to_node):

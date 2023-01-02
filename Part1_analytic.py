@@ -64,7 +64,7 @@ def A_z(r_list, problem_params):
 
     def A2(r):
         # analytic expression for isolator
-        return (I / 2 * pi) * (mu_s * np.log(r_1 / r) - mu_w / 2)
+        return - I * mu_s / (2*np.pi) * np.log(r / r_2)
 
     def A1(r):
         # analytic expression for inner wire
