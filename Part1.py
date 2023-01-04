@@ -27,14 +27,14 @@ print(l_analytic)
 
 # plot solution for all
 plt.plot(r_list, A_list)
-plt.title('vector potential in coax cable')
+plt.title('vector potential in coax cross section')
 plt.xlabel('radius r in m', fontweight='bold')
 plt.ylabel('| A |', fontweight='bold')
 plt.show()
 
 # plot solution for all
 plt.plot(r_list, H_list)
-plt.title('Magnetic Field in a coax cabel')
+plt.title('Magnetic Field in a coax cross section')
 plt.xlabel('radius r in m', fontweight='bold')
 plt.ylabel('| H |', fontweight='bold')
 plt.show()
