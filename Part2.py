@@ -23,8 +23,11 @@ circle2 = gmsh.model.occ.addCircle(0, 0, 0, 3.5)
 curve2 = gmsh.model.occ.addCurveLoop([circle2])
 
 # circle surfaces 1= inner cond. , 2=isolator
-surface1 = gmsh.model.occ.add_plane_surface([curve1])
-surface2 = gmsh.model.occ.add_plane_surface([curve2,curve1])
+surface1 = gmsh.model.occ.add_plane_surface(([curve1]))
+surface2 = gmsh.model.occ.add_plane_surface([curve2, curve1])
+
+# set number of elements for each surface
+gmsh.option.setNumber("Mesh.MeshSizeFromCurvature", 25)
 
 # from Gmsh model.
 gmsh.model.occ.synchronize()

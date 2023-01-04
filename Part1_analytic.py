@@ -121,6 +121,7 @@ def calc_energy_ind(problem):
     # Analytic Energy and Inductance
     w_magn_analytic = problem.I ** 2 * problem.z_length / (4 * np.pi) * (
                 mu_0 / 4 + problem.mu_shell * np.log(problem.r_2 / problem.r_1))  # [J]   : magnetic energy (analytic)
+
     l_analytic = 2 * w_magn_analytic / problem.I ** 2                             # [H]   : inductance (analytic)
 
     return w_magn_analytic, l_analytic

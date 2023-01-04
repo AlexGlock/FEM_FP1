@@ -18,7 +18,7 @@ extensions:
 """
 
 # load and init mesh
-cable_msh = load_mesh('coax.geo')
+cable_msh = load_mesh('wire.msh')
 # get problem Parameters and generate shape Fkt
 model_params = define_problem()
 model_shape_fkt = create_shape_fkt(cable_msh)
