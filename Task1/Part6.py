@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.sparse.linalg as la
 """
-A.G. Part6 of Task1
+A.G. Part6 of Forschungspraxis1
 boundary conditions and system solving
 extensions:
     Part4_knu.py

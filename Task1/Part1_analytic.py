@@ -1,7 +1,7 @@
 from scipy.constants import pi, mu_0, epsilon_0
 from dataclasses import dataclass
 import numpy as np
-"""A.G. Part1 of Task1
+"""A.G. Part1 of Forschungspraxis1
 
 This file plots the analytic solution of a ´magnetostatic coax cable problem
 
@@ -23,7 +23,7 @@ class ProblemParams:
 
 
 def define_problem():
-    # Problem Parameters according to Task1
+    # Problem Parameters according to Forschungspraxis1
     # all parameters in SI base units [m, A, ...]
     l_z = 300e-3                    # [m]: Depth of wire (lz)
     i_curr = 16                     # [A]   : applied current
@@ -118,10 +118,15 @@ def H_phi(r_list, problem_params):
 
 def calc_energy_ind(problem):
     # Analytic Energy and Inductance in a coax b´cable model
-    # Analytic Energy and Inductance
+
+    # L = phi_m / I         # [H]   : inductance (analytic)
+    # l_analytic = problem.z_length / (2 * np.pi) * (mu_0 / 2 + problem.mu_shell * np.log(problem.r_2 / problem.r_1))
+    # W_mag = 1/2 LI^2
+    # w_magn_analytic = 1 / 2 * l_analytic * problem.I ** 2
+
+    # alternativ:
     w_magn_analytic = problem.I ** 2 * problem.z_length / (4 * np.pi) * (
                 mu_0 / 4 + problem.mu_shell * np.log(problem.r_2 / problem.r_1))  # [J]   : magnetic energy (analytic)
-
-    l_analytic = 2 * w_magn_analytic / problem.I ** 2                             # [H]   : inductance (analytic)
+    l_analytic = 2 * w_magn_analytic / problem.I ** 2
 
     return w_magn_analytic, l_analytic

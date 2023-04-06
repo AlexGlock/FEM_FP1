@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.sparse.linalg as la
 """
-A.G. Part6_solver of Task1
+A.G. Part6_solver of Forschungspraxis1
 boundary conditions and system solving
 extensions:
     Part4_knu.py
@@ -35,7 +35,7 @@ class MagnetostaticSolver:
 
     @property
     def knu(self):
-        # knu matrix of system
+        # stifness matrix knu of system
         return knu_for_mesh(self.mesh, self.shape_fkt, self.model)
 
     @property
@@ -71,6 +71,6 @@ class MagnetostaticSolver:
     def w_mag(self):
         # magnetic energy
         a = self.solve_dir
-        return 1/2*a@self.knu@a
+        return 1/2 * a @ self.knu @ a
 
 

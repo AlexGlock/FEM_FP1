@@ -6,7 +6,7 @@ from Part3_visualize import cross_section_plot
 from Part1_analytic import define_problem, calc_energy_ind
 
 """
-A.G. Part7 of Task1
+A.G. Part7 of Forschungspraxis1
 Post processing
 extensions:
     Part6_solver.py
@@ -31,6 +31,8 @@ MSsolver = MagnetostaticSolver(cable_msh, model_params, model_shape_fkt)
 # vector pot. in z-direction only: A_z -> curl operator leads to B_x and B_y component
 
 b_field = MSsolver.b
+print('Dimensions of b_field:')
+print(np.shape(b_field))
 b_abs = np.linalg.norm(b_field, axis=1)     # [T]    : magnitude of the magnetic flux density
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -43,7 +45,9 @@ cross_section_plot(cable_msh, b_abs, 'magnetic flux density B in coax cross-sect
 
 print('Magnetostatic Solver Validation:')
 print('--------------------------------------------')
-w_mag_fe = MSsolver.w_mag                                                              # [J] : magnetic energy
+a = MSsolver.solve_dir
+knu = MSsolver.knu
+w_mag_fe = 1/2 * a @ knu @ a                            # [J] : magnetic energy
 print('Magnetic energy according to FE-Solver [J]:')
 print(w_mag_fe)
 

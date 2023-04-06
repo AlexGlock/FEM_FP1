@@ -4,7 +4,7 @@ from scipy.constants import mu_0, pi
 from scipy.sparse import csr_matrix, csr_array, spmatrix
 from scipy import sparse
 import numpy as np
-"""A.G. Part4 of Task1 - knu
+"""A.G. Part4 of Forschungspraxis1 - knu
 
 This file contains functions to initialize the knu stiffness matrix and reluctivity/ current vectors
 

@@ -2,7 +2,7 @@ import gmsh
 import sys
 import numpy as np
 from scipy.constants import pi, mu_0, epsilon_0
-"""A.G. Part2 of Task1
+"""A.G. Part2 of Forschungspraxis1
 
 This file creates a gmesh 2D-Model of a coaxial wire cross-section and saves it as wire.msh
 

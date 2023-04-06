@@ -4,7 +4,7 @@ from point2d import Point2D
 import numpy as np
 import gmsh
 import math
-"""A.G. Part4 of Task1 - geometry
+"""A.G. Part4 of Forschungspraxis1 - geometry
 
 This file contains functions and classes for the geometry handling of a gmesh file
 

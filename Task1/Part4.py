@@ -7,7 +7,7 @@ from matplotlib.tri import Triangulation
 import matplotlib.pyplot as plt
 import numpy as np
 """
-A.G. Part4 of Task1
+A.G. Part4 of Forschungspraxis1
 
 extensions:
     Part4_geometry.py     - loads and analyses gmesh files

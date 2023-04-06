@@ -6,7 +6,7 @@ from matplotlib.tri import Triangulation
 import matplotlib.pyplot as plt
 import numpy as np
 """
-A.G. Part5 of Task1
+A.G. Part5 of Forschungspraxis1
 first Validation of the solver
 extensions:
     Part4_geometry.py     - loads and analyses gmesh files
@@ -40,7 +40,7 @@ print('magnetic energy (analytic) [J]:')
 print(w_mag_analytic)
 
 # calc energy and inductance based on numeric solution W = 1/2 * vol_Int(A*J):
-w_mag_num_test = 1/2*A_analytic@knu@A_analytic           # [J]    : magn. energy calculated with Knu matrix
+w_mag_num_test = 1/2 * A_analytic @ knu @ A_analytic           # [J]    : magn. energy calculated with Knu matrix
 print('magnetic energy (FE-Test) [J]:')
 print(w_mag_num_test)
 

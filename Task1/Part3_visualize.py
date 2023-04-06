@@ -3,7 +3,7 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.tri import Triangulation
-"""A.G. Part3 of Task1
+"""A.G. Part3 of Forschungspraxis1
 
 This file loads a 2D-Model of a coaxial wire cross-section and visualizes the different physical groups in a Plot.
 
